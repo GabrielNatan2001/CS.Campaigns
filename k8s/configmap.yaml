@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cs-campaigns-config
+data:
+  ASPNETCORE_ENVIRONMENT: "Production"
+  Jwt__Issuer: "CS.Identity.API"
+  Jwt__Audience: "CS.Campaigns.API"
+  Publishers__DoacaoRecebida__Exchange: "cs.doacao.recebida"
+  Publishers__DoacaoRecebida__RoutingKey: "donations.doacao-recebida"

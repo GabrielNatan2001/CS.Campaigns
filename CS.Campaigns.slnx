@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CS.Campaigns.API/CS.Campaigns.API.csproj" />
+    <Project Path="src/CS.Campaigns.Application/CS.Campaigns.Application.csproj" />
+    <Project Path="src/CS.Campaigns.Domain/CS.Campaigns.Domain.csproj" />
+    <Project Path="src/CS.Campaigns.Infrastructure/CS.Campaigns.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CS.Campaigns.Domain.Tests/CS.Campaigns.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
