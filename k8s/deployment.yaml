@@ -15,6 +15,7 @@ spec:
       containers:
         - name: cs-campaigns-api
           image: gabrielnatan2001/cs-campaigns-api:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:

@@ -30,3 +30,22 @@ jobs:
           docker tag gabrielnatan2001/cs-campaigns-api:${{ github.sha }} gabrielnatan2001/cs-campaigns-api:latest
           docker push gabrielnatan2001/cs-campaigns-api:${{ github.sha }}
           docker push gabrielnatan2001/cs-campaigns-api:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to Kubernetes
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+        run: |
+          if [ -z "$KUBE_CONFIG_DATA" ]; then
+            echo "Secret KUBE_CONFIG não configurado — deploy automático pulado."
+            echo "Configure o secret (kubeconfig em base64) para o CI atualizar o pod."
+            exit 0
+          fi
+          echo "$KUBE_CONFIG_DATA" | base64 -d > kubeconfig
+          export KUBECONFIG="$PWD/kubeconfig"
+          kubectl set image deployment/cs-campaigns-api api=gabrielnatan2001/cs-campaigns-api:${{ github.sha }} -n conexao-solidaria
+          kubectl rollout status deployment/cs-campaigns-api -n conexao-solidaria --timeout=120s
